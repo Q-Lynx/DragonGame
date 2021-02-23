@@ -36,7 +36,7 @@ class DragonUnitTest(unittest.TestCase):
         for root, dirs, files in os.walk('/Users/macbook/Smoki'): #TODOFIX
            if filename in files:
                self.assertTrue(True) 
-            else:
+           else:
                self.assertFalse(True)  
 
 #    def test_load(self):

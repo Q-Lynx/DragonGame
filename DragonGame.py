@@ -26,13 +26,14 @@ class Dragon:
     def load(filename):
         name = None
         level = None
- 
+
         savefile = open(filename, 'r')
         try:
             tmp = savefile.readline()
-            name = tmp.split(',')[0][6:]     # TODO: FIX!
-            level = int(tmp.split(',')[1][7:-1])  # TODO: FIX!
+            name = tmp.split(',')[0][6:]  
+            level = [int(s) for s in tmp.split() if s.isdigit()][]  
         finally:
             savefile.close()
  
-        return Dragon(name, level)
+        result = Dragon(name, level)
+        return result
