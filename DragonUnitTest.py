@@ -29,15 +29,21 @@ class DragonUnitTest(unittest.TestCase):
         drag.levelUp()
         self.assertEqual(drag.level, 1)
     
-    def test_save(self):
-        filename = "Stefan.sv"
+#    def test_save(self):
+#        filename = "Stefan.sv"
+#        drag = Dragon("Stefan", 5)
+#        drag.save(filename)
+#        for root, dirs, files in os.walk('/Users/macbook/DragonGame/'): #TODOFIX
+#           if filename in files:
+#               self.assertTrue(True)
+#           else:
+#               self.assertFalse(True)
+
+    def test_json(self):
         drag = Dragon("Stefan", 5)
-        drag.save(filename)
-        for root, dirs, files in os.walk('/Users/macbook/Smoki'): #TODOFIX
-           if filename in files:
-               self.assertTrue(True) 
-           else:
-               self.assertFalse(True)  
+        c = drag.to_json()
+        print(type(c))
+        print(c)
 
 #    def test_load(self):
 #        name = None

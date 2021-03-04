@@ -1,13 +1,33 @@
-#import DragonStatistics 
+# import DragonStatistics
+import json 
+
 
 class Dragon:
     def __init__(self, name, level=0):
-         self.name = name
-         self.level = level
+        self.name = name
+        self.level = level
 #         self.stats = Statistics.Stats()
 
     def __str__(self):
         return "name: {}, level: {}".format(self.name, self.level)
+
+    def to_dict(self):
+        result = dict()
+        result["name"] = self.name
+        result["level"] = self.level
+        return result
+
+    def to_json(self):
+        return json.dumps(self.to_dict())
+
+#            a_dict[variable] = eval(variable)
+
+    @classmethod
+    def from_json(cls, input_json):
+        tmp = json.loads(input_json)
+        result = cls(tmp["name"], tmp["level"])
+
+        return result
 
     def levelUp(self):
         self.level = self.level + 1
@@ -18,22 +38,19 @@ class Dragon:
     def save(self, filename):
         savefile = open(filename, 'w')
         try:
-            savefile.write(str(self))
+            savefile.write(self.to_json())
             savefile.write('\n')
         finally:
             savefile.close()
 
-    def load(filename):
-        name = None
-        level = None
-
+    @classmethod
+    def load(cls, filename):
         savefile = open(filename, 'r')
+        tmp = ""
+
         try:
-            tmp = savefile.readline()
-            name = tmp.split(',')[0][6:]  
-            level = [int(s) for s in tmp.split() if s.isdigit()][]  
+            tmp = savefile.read()
         finally:
             savefile.close()
- 
-        result = Dragon(name, level)
-        return result
+
+        return cls.from_json(tmp)
