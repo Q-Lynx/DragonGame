@@ -1,6 +1,8 @@
-from flask import Flask
+from flask import Flask, request, g
 
-from flask import request
+import json
+
+import sqlite3 
 
 from DragonGame import Dragon
 
@@ -33,8 +35,22 @@ def dragon(dragon_id):
     else:
         raise Exception("Wrong HTTP method!")
 
-if __name__ == "__main__":
-    print(Dragon("Grzegorz"))
+DATABASE = "Dragonbase.db"
 
-    app.run(host='127.0.0.1', port=5000)
+def get_db():
+    db = getattr(g, "Dragonbase.db", None)
+    if db is None:
+        db = g.Dragonbase.db = sqlite3.connect(DATABASE)
+        return db
+
+@app.teardown_appcontext
+def close_connection(exception):
+    db = getattr(g, "Dragonbase.db", None)
+    if db is not None :
+        db.close()
+
+if __name__ == "__main__":
+    print(Dragon("Grzegosz"))
+
+    app.run(host='127.0.0.1', port=5000, debug=True)
   
