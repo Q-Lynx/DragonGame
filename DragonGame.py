@@ -1,4 +1,4 @@
-# import DragonStatistics
+import DragonStatistics
 import json 
 
 
@@ -6,10 +6,10 @@ class Dragon:
     def __init__(self, name, level=0):
         self.name = name
         self.level = level
-#         self.stats = Statistics.Stats()
+        self.stats = DragonStatistics.Stats()
 
-    def __str__(self):
-        return "name: {}, level: {}".format(self.name, self.level)
+#    def __str__(self):
+#        return "name: {}, level: {}".format(self.name, self.level)
 
     def to_dict(self):
         result = dict()
